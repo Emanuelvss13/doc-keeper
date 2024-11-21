@@ -24,8 +24,8 @@ dotenv.config();
   const migrationPath = path.join(process.cwd(), 'src/drizzle/migrations');
 
   // Run the migrations
-  await migrate(db, { migrationsFolder: migrationPath });
+  const log = await migrate(db, { migrationsFolder: migrationPath });
 
-  console.log('Migration complete');
+  console.log('Migration complete', log);
   exit(0);
 })();
