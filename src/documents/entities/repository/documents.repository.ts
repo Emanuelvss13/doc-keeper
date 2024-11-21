@@ -3,5 +3,6 @@ import { Document } from '../document.entity';
 
 export interface DocumentsRepository {
   createDocument(createDocumentDTO: ICreateDocumentDTO): Promise<Document>;
+  findById(id: string);
   findAll(): Promise<Document[]>;
 }
