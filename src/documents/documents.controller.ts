@@ -1,20 +1,19 @@
 import { Controller, Inject } from '@nestjs/common';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { DocumentControllerContract } from './document.contract';
-import { DocumentsRepository } from './entities/repository/documents.repository';
-import { DocumentsDrizzleRepository } from './infra/drizzle/documents-drizzle.repository';
+import { FindAllDocumentsUseCase } from './use-cases/find-all-documents.find-all';
 
 @Controller()
 export class DocumentsController {
   constructor(
-    @Inject(DocumentsDrizzleRepository)
-    private readonly documentRepository: DocumentsRepository,
+    @Inject('FindAllDocumentsUseCase')
+    private readonly findAllDocumentsUseCase: FindAllDocumentsUseCase,
   ) {}
 
   @TsRestHandler(DocumentControllerContract.getDocuments)
   async getDocuments() {
     return tsRestHandler(DocumentControllerContract.getDocuments, async () => {
-      const documents = await this.documentRepository.findAll();
+      const documents = await this.findAllDocumentsUseCase.execute();
 
       if (!documents) {
         return { status: 404, body: null };
