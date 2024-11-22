@@ -14,13 +14,13 @@ export class DocumentsDrizzleRepository implements DocumentsRepository {
     private drizzle: NodePgDatabase<typeof schema>,
   ) {}
 
-  async findById(id: string) {
+  async findById(id: string): Promise<Document | null> {
     const document = await this.drizzle.query.documents.findFirst({
       where: (documents, { eq }) => eq(documents.id, id),
       with: { documentType: true },
     });
 
-    return DocumentFactory.create(document);
+    return document ? DocumentFactory.create(document) : null;
   }
 
   async createDocument({

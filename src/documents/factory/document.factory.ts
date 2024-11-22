@@ -26,7 +26,7 @@ export class DocumentFactory {
         document.documentType.id,
         document.documentType.name,
       ),
-      DocumentOrigin[origin as keyof typeof DocumentOrigin],
+      DocumentOrigin[document.origin as keyof typeof DocumentOrigin],
       document.createdAt,
       document.updatedAt,
     );
