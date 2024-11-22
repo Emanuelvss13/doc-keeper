@@ -30,18 +30,21 @@ export class DocumentsController {
 
   @TsRestHandler(DocumentControllerContract.getDocuments)
   async getDocuments() {
-    return tsRestHandler(DocumentControllerContract.getDocuments, async () => {
-      const documents = await this.findAllDocumentsUseCase.execute();
+    return tsRestHandler(
+      DocumentControllerContract.getDocuments,
+      async ({ query }) => {
+        const documents = await this.findAllDocumentsUseCase.execute(query);
 
-      if (!documents) {
-        return {
-          status: 404,
-          body: null,
-        };
-      }
+        if (!documents) {
+          return {
+            status: 404,
+            body: null,
+          };
+        }
 
-      return { status: 200 as const, body: documents };
-    });
+        return { status: 200 as const, body: documents };
+      },
+    );
   }
 
   @TsRestHandler(DocumentControllerContract.getDocumentById)
@@ -50,8 +53,6 @@ export class DocumentsController {
       DocumentControllerContract.getDocumentById,
       async ({ params }) => {
         const document = await this.findByIdUseCase.execute(params.id);
-
-        console.log(document);
 
         if (!document) {
           return {
@@ -100,8 +101,6 @@ export class DocumentsController {
     @UploadedFile() file: Express.Multer.File,
     @Body() params: ICreateDocumentDTO,
   ) {
-    console.log(file);
-
     if (!file) {
       throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
     }

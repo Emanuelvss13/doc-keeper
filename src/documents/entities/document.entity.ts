@@ -52,8 +52,6 @@ export class Document {
   }
 
   getFilenameInStorage() {
-    console.log(this.storagePath.split('/'));
-
     return this.storagePath.split('/')[1];
   }
 }

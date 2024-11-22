@@ -1,6 +1,7 @@
 import { HttpStatus } from '@nestjs/common';
 import { initContract } from '@ts-rest/core';
 import { ICreateDocumentDTO } from './dto/create-document.dto';
+import { IFindAllDocumentsFilter } from './dto/find-all-documents.filter';
 import { Document } from './entities/document.entity';
 
 const c = initContract();
@@ -9,6 +10,7 @@ export const DocumentControllerContract = c.router({
   getDocuments: {
     method: 'GET',
     path: `/documents`,
+    query: c.type<IFindAllDocumentsFilter>(),
     responses: {
       200: c.type<Document[]>(),
     },
