@@ -16,9 +16,15 @@ export class CreateDocumentUseCase {
   async execute(data: ICreateDocumentDTO, file: Express.Multer.File) {
     await this.storage.upload(file.filename, file.path);
 
-    return this.documentRepository.createDocument(
+    const document = await this.documentRepository.createDocument(
       data,
       `doc-keeper/${file.filename}`,
     );
+
+    document.setUrl(
+      await this.storage.getSignedUrl(document.getFilenameInStorage()),
+    );
+
+    return document;
   }
 }
