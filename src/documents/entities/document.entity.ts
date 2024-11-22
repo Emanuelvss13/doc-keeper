@@ -4,7 +4,7 @@ import { DocumentType } from './document-type.entity';
 export class Document {
   private readonly id: string;
   private readonly title: string;
-  private readonly code: string;
+  private code: string;
   private readonly emitter: string;
   private readonly totalTaxes: number;
   private readonly netValue: number;
@@ -12,6 +12,10 @@ export class Document {
   private readonly origin: DocumentOrigin;
   private readonly createdAt: Date;
   private readonly updatedAt: Date;
+
+  private readonly storagePath: string;
+
+  private url: string;
 
   constructor(
     id: string,
@@ -21,6 +25,7 @@ export class Document {
     netValue: number,
     type: DocumentType,
     origin: DocumentOrigin,
+    storagePath: string,
     createdAt: Date,
     updatedAt: Date,
   ) {
@@ -31,7 +36,24 @@ export class Document {
     this.netValue = netValue;
     this.type = type;
     this.origin = origin;
+    this.storagePath = storagePath;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+
+    this.setCode();
+  }
+
+  setCode() {
+    this.code = this.id.split('-')[4];
+  }
+
+  setUrl(url: string) {
+    this.url = url;
+  }
+
+  getFilenameInStorage() {
+    console.log(this.storagePath.split('/'));
+
+    return this.storagePath.split('/')[1];
   }
 }

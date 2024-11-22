@@ -11,6 +11,7 @@ export class DocumentFactory {
     netValue: string;
     documentType: { id: number; name: string };
     origin: string;
+    storagePath: string;
     createdAt: Date;
     updatedAt: Date;
   }) {
@@ -25,6 +26,7 @@ export class DocumentFactory {
         document.documentType.name,
       ),
       DocumentOrigin[document.origin as keyof typeof DocumentOrigin],
+      document.storagePath,
       document.createdAt,
       document.updatedAt,
     );

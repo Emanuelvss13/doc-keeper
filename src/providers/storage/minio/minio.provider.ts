@@ -38,7 +38,7 @@ export class MinioProvider implements IStorage {
     }
   }
 
-  async get(filename: string): Promise<string> {
+  async getSignedUrl(filename: string): Promise<string> {
     const url = await this.client.presignedUrl(
       'GET',
       this.bucketName,
