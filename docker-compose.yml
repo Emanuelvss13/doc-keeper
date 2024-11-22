@@ -10,9 +10,12 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     ports:
       - "1234:5432"
+    networks:
+      - dockeeper-network
     volumes:
       - postgres_data:/var/lib/postgresql/data
-       - ./init:/docker-entrypoint-initdb.d
+      - ./init:/docker-entrypoint-initdb.d
+
   minio:
     image: minio/minio:latest
     container_name: minio
@@ -25,12 +28,30 @@ services:
     volumes:
       - ./data:/data
     networks:
-      - minio-network
+      - dockeeper-network
     restart: always
     command: server /data --console-address ":9001"
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dockeeper
+    environment:
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_URL: ${DATABASE_URL}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    networks:
+      - dockeeper-network
+    restart: always
+
 networks:
-  minio-network:
+  dockeeper-network:
     driver: bridge
 
 volumes:
