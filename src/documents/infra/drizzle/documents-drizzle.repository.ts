@@ -24,7 +24,6 @@ export class DocumentsDrizzleRepository implements DocumentsRepository {
   }
 
   async createDocument({
-    code,
     emitter,
     documentTypeId,
     title,
@@ -35,8 +34,8 @@ export class DocumentsDrizzleRepository implements DocumentsRepository {
     const [createdDocument] = await this.drizzle
       .insert(schema.documents)
       .values({
+        code: '',
         title,
-        code,
         emitter,
         netValue,
         origin,
