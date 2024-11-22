@@ -15,7 +15,6 @@ export class Document {
 
   constructor(
     id: string,
-    code: string,
     title: string,
     emitter: string,
     totalTaxes: number,
@@ -27,7 +26,6 @@ export class Document {
   ) {
     this.id = id;
     this.title = title;
-    this.code = code;
     this.emitter = emitter;
     this.totalTaxes = totalTaxes;
     this.netValue = netValue;

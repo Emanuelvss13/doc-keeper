@@ -5,7 +5,6 @@ import { DocumentTypeFactory } from './document-type.factory';
 export class DocumentFactory {
   static create(document: {
     id: string;
-    code: string;
     title: string;
     emitter: string;
     totalTaxes: string;
@@ -17,7 +16,6 @@ export class DocumentFactory {
   }) {
     return new Document(
       document.id,
-      document.code,
       document.title,
       document.emitter,
       Number(document.totalTaxes),
