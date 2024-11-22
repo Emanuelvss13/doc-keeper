@@ -16,6 +16,9 @@ export class CreateDocumentUseCase {
   async execute(data: ICreateDocumentDTO, file: Express.Multer.File) {
     await this.storage.upload(file.filename, file.path);
 
-    return this.documentRepository.createDocument(data, file.path);
+    return this.documentRepository.createDocument(
+      data,
+      `doc-keeper/${file.filename}`,
+    );
   }
 }
