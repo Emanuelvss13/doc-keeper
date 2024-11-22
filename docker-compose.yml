@@ -13,6 +13,25 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
        - ./init:/docker-entrypoint-initdb.d
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    environment:
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - ./data:/data
+    networks:
+      - minio-network
+    restart: always
+    command: server /data --console-address ":9001"
+
+networks:
+  minio-network:
+    driver: bridge
 
 volumes:
   postgres_data:
