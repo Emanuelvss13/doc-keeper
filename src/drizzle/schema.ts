@@ -16,7 +16,6 @@ export const documentTypes = pgTable('document_types', {
 export const documents = pgTable('documents', {
   id: uuid('id').defaultRandom().primaryKey(), // UUID ou similar
   title: text('title').notNull(),
-  code: text('code').notNull(),
   emitter: text('emitter').notNull(),
   totalTaxes: decimal('total_taxes').notNull(),
   netValue: decimal('net_value').notNull(),
@@ -24,6 +23,7 @@ export const documents = pgTable('documents', {
     .notNull()
     .references(() => documentTypes.id),
   origin: text('origin').notNull(),
+  storagePath: text('storagePath').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),
