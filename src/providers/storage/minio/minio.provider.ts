@@ -1,4 +1,5 @@
 import { InternalServerErrorException } from '@nestjs/common';
+import { unlink } from 'fs';
 import { Client } from 'minio';
 import { IStorage } from '../storage.model';
 
@@ -25,9 +26,10 @@ export class MinioProvider implements IStorage {
     this.bucketName = bucketName;
   }
 
-  async upload(filename: string): Promise<void> {
+  async upload(filename: string, filepath: string): Promise<void> {
     try {
-      await this.client.fPutObject(this.bucketName, filename, '');
+      await this.client.fPutObject(this.bucketName, filename, filepath);
+      unlink(`uploads/${filename}`, () => {});
     } catch (error) {
       throw new InternalServerErrorException(
         'Error ao fazer upload do arquivo: ',
