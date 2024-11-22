@@ -31,6 +31,7 @@ export class MinioProvider implements IStorage {
       await this.client.fPutObject(this.bucketName, filename, filepath);
       unlink(`uploads/${filename}`, () => {});
     } catch (error) {
+      console.log(error);
       throw new InternalServerErrorException(
         'Error ao fazer upload do arquivo: ' + error,
       );
