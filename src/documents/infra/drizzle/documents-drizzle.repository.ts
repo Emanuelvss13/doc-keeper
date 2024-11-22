@@ -23,24 +23,27 @@ export class DocumentsDrizzleRepository implements DocumentsRepository {
     return document ? DocumentFactory.create(document) : null;
   }
 
-  async createDocument({
-    emitter,
-    documentTypeId,
-    title,
-    origin,
-    totalTaxes,
-    netValue,
-  }: ICreateDocumentDTO): Promise<Document> {
+  async createDocument(
+    {
+      emitter,
+      documentTypeId,
+      title,
+      origin,
+      totalTaxes,
+      netValue,
+    }: ICreateDocumentDTO,
+    storagePath: string,
+  ): Promise<Document> {
     const [createdDocument] = await this.drizzle
       .insert(schema.documents)
       .values({
-        code: '',
         title,
         emitter,
         netValue,
         origin,
         totalTaxes,
         type: documentTypeId,
+        storagePath,
       })
       .returning({ id: schema.documents.id });
 

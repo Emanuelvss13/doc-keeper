@@ -106,7 +106,7 @@ export class DocumentsController {
       throw new HttpException('No file uploaded', HttpStatus.BAD_REQUEST);
     }
 
-    await this.createDocumentUseCase.execute(params);
+    await this.createDocumentUseCase.execute(params, file);
 
     return {
       status: 200 as const,
