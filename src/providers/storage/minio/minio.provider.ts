@@ -32,8 +32,7 @@ export class MinioProvider implements IStorage {
       unlink(`uploads/${filename}`, () => {});
     } catch (error) {
       throw new InternalServerErrorException(
-        'Error ao fazer upload do arquivo: ',
-        error,
+        'Error ao fazer upload do arquivo: ' + error,
       );
     }
   }
