@@ -1,99 +1,75 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
 </p>
 
 [circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
 [circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Descrição do Desafio:
+ Desenvolver uma API completa com operações CRUD para atender as rotas necessárias ao projeto front-end, de acordo com o design das telas especificadas no link do figma https://www.figma.com/design/UMOBnSkteDAn3aMdFRwr19/Teste-front-end?node-id=0-1&m=dev&t=bHXjT4ffKx27stgq-1, e implementar o upload de documentos utilizando MinIO.
 
-## Project setup
+# Requisitos
+## Framework e Bibliotecas
 
+Utilizar NestJS para o desenvolvimento da API.
+
+Implementar o ORM Drizzle para comunicação com o banco de dados.
+
+Utilizar ts-rest para definir e disponibilizar as rotas da API.
+
+# Funcionalidades
+
+Implementar todas as rotas e operações CRUD necessárias para atender as funcionalidades das telas, respeitando as especificações de métodos HTTP (GET, POST, PUT, DELETE) adequadas para cada recurso.
+
+As rotas devem cobrir todos os casos de uso necessários para a interação com os dados da aplicação.
+
+## Testes Unitários
+
+Implementar testes unitários para cada rota e operação da API, garantindo que o código funcione corretamente em diferentes cenários e que erros sejam tratados adequadamente.
+
+Cobrir as principais funcionalidades para assegurar a confiabilidade das operações implementadas.
+
+## Integração e Deploy
+
+ GitHub Actions: Configurar GitHub Actions para rodar os testes automaticamente em cada push e pull request. Utilizar uma imagem Docker para garantir consistência no ambiente de execução.
+
+CI/CD: Configurar integração e deploy contínuos (CI/CD) para o deploy automático da API. Utilizar uma plataforma que suporte CI/CD, de forma que as atualizações aprovadas no repositório GitHub sejam automaticamente publicadas em produção.
+
+Docker: Configurar Docker para que o ambiente seja replicável localmente e durante o CI/CD, garantindo que a API e os testes rodem com consistência.
+
+# Requisitos Adicionais de Upload de Documentos
+
+## Servidor MinIO
+
+Configurar e subir um servidor MinIO em contêiner Docker para simular o armazenamento de arquivos, de uma forma que é possível desligar e ligar a API sem perder os arquivos.
+
+Configurar as credenciais de acesso do MinIO, garantindo compatibilidade com a API da AWS S3.
+
+## Upload de Documentos
+
+Implementar rotas para upload de documentos, utilizando a AWS SDK para integração com o servidor MinIO.
+
+Assegurar que os arquivos sejam salvos de forma segura no MinIO, respeitando boas práticas de armazenamento.
+
+Fornecer feedback ao usuário sobre o status do upload (sucesso ou erro).
+
+## Integração com CI/CD e GitHub Actions
+
+Configurar GitHub Actions para subir o servidor MinIO durante os testes e realizar o upload de documentos como parte dos testes automatizados.
+
+Incluir testes para verificar o upload e recuperação de documentos no MinIO, validando que o processo funcione em todos os ambientes de deploy.
+
+ 
+
+## Instruções:
+ 
 ```bash
-$ npm install
+# Preencha o arquivo .env com base no arquivo .example.env contido neste repositorio.
+
+# Faça o build da aplicação com docker:
+$ docker compose up --build
+
+# Utilize o arquivo requests.json para ver todas as requisições disponiveis neste projeto
 ```
-
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Run tests
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
