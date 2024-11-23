@@ -9,4 +9,5 @@ export interface DocumentsRepository {
   ): Promise<Document>;
   findById(id: string): Promise<Document>;
   findAll(filter?: IFindAllDocumentsFilter): Promise<Document[]>;
+  deleteById(id: string): Promise<void>;
 }

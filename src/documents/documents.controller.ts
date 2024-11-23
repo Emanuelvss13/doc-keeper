@@ -14,7 +14,8 @@ import { extname } from 'path';
 import { DocumentControllerContract } from './document.contract';
 import { ICreateDocumentDTO } from './dto/create-document.dto';
 import { CreateDocumentUseCase } from './use-cases/create-document.use-case';
-import { FindAllDocumentsUseCase } from './use-cases/find-all-documents.find-all';
+import { DeleteDocumentUseCase } from './use-cases/delete-document.use-case';
+import { FindAllDocumentsUseCase } from './use-cases/find-all-documents.use-case';
 import { FindByIdUseCase } from './use-cases/find-by-id.use-case';
 
 @Controller()
@@ -26,6 +27,8 @@ export class DocumentsController {
     private readonly findByIdUseCase: FindByIdUseCase,
     @Inject('CreateDocumentUseCase')
     private readonly createDocumentUseCase: CreateDocumentUseCase,
+    @Inject('DeleteDocumentUseCase')
+    private readonly deleteDocumentUseCase: DeleteDocumentUseCase,
   ) {}
 
   @TsRestHandler(DocumentControllerContract.getDocuments)
@@ -65,6 +68,18 @@ export class DocumentsController {
         }
 
         return { status: 200 as const, body: document };
+      },
+    );
+  }
+
+  @TsRestHandler(DocumentControllerContract.deleteDocument)
+  async deleteDocumentById() {
+    return tsRestHandler(
+      DocumentControllerContract.deleteDocument,
+      async ({ params }) => {
+        await this.deleteDocumentUseCase.execute(params.id);
+
+        return { status: 200, body: null };
       },
     );
   }

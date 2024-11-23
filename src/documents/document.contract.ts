@@ -38,4 +38,12 @@ export const DocumentControllerContract = c.router({
     },
     summary: 'Create a new document',
   },
+  deleteDocument: {
+    method: 'DELETE',
+    path: `/documents/:id`,
+    responses: {
+      200: c.type<void>(),
+    },
+    summary: 'Delete a document by ID',
+  },
 });

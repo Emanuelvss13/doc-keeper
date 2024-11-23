@@ -5,7 +5,8 @@ import { MinioProvider } from '../providers/storage/minio/minio.provider';
 import { DocumentsController } from './documents.controller';
 import { DocumentsDrizzleRepository } from './infra/drizzle/documents-drizzle.repository';
 import { CreateDocumentUseCase } from './use-cases/create-document.use-case';
-import { FindAllDocumentsUseCase } from './use-cases/find-all-documents.find-all';
+import { DeleteDocumentUseCase } from './use-cases/delete-document.use-case';
+import { FindAllDocumentsUseCase } from './use-cases/find-all-documents.use-case';
 import { FindByIdUseCase } from './use-cases/find-by-id.use-case';
 
 @Module({
@@ -23,6 +24,10 @@ import { FindByIdUseCase } from './use-cases/find-by-id.use-case';
     {
       provide: 'CreateDocumentUseCase',
       useClass: CreateDocumentUseCase,
+    },
+    {
+      provide: 'DeleteDocumentUseCase',
+      useClass: DeleteDocumentUseCase,
     },
     {
       provide: 'MinioProvider',

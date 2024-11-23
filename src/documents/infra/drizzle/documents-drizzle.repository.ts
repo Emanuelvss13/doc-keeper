@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { and } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 import { NodePgDatabase } from 'drizzle-orm/node-postgres';
 import { DrizzleAsyncProvider } from '../../../drizzle/drizzle.provider';
 import * as schema from '../../../drizzle/schema';
@@ -15,6 +15,12 @@ export class DocumentsDrizzleRepository implements DocumentsRepository {
     @Inject(DrizzleAsyncProvider)
     private drizzle: NodePgDatabase<typeof schema>,
   ) {}
+
+  async deleteById(id: string): Promise<void> {
+    await this.drizzle
+      .delete(schema.documents)
+      .where(eq(schema.documents.id, id));
+  }
 
   async findById(id: string): Promise<Document | null> {
     const document = await this.drizzle.query.documents.findFirst({

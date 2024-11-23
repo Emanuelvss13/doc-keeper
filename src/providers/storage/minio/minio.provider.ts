@@ -33,7 +33,7 @@ export class MinioProvider implements IStorage {
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(
-        'Error ao fazer upload do arquivo: ' + error,
+        `Error ao fazer upload do arquivo: ${error}`,
       );
     }
   }
@@ -54,8 +54,7 @@ export class MinioProvider implements IStorage {
       await this.client.removeObject(this.bucketName, filename);
     } catch (error) {
       throw new InternalServerErrorException(
-        'Error ao apagar arquivo: ',
-        error,
+        `Error ao apagar arquivo: ${error}`,
       );
     }
   }
